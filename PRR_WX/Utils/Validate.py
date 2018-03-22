@@ -13,13 +13,8 @@
 __author__ = 'linhanqiu'
 
 import hashlib
-import sys
-from pathlib import Path
-import os
-# from yaml import
-# f = open(Path(os.getcwd()) / 'conf.yaml')
-# c = yaml.load(f)
-# print(c)
+
+from PRR_WX.Static import conf
 
 
 def Validate(request):
@@ -28,8 +23,8 @@ def Validate(request):
     :param request: 请求
     :return: str
     """
-    # 这里改写你在微信公众平台里输入的token
-    token = 'linhanqiu1123'
+    # 重新配置Token
+    token = conf.get('token')
 
     # 获取输入参数
     data = request.args

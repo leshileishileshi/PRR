@@ -12,18 +12,15 @@
 """
 __author__ = 'linhanqiu'
 
-# Sanic包
+# 包管理
 from sanic import Sanic
 from sanic.response import text
 import xml.etree.ElementTree as Element
-# import sys
-# sys.path.append('/home/PRR/PRR_WX')
 from PRR_WX.Utils.Validate import Validate
 from PRR_WX.Utils.CustomReply import (
     Reply_text,
     Reply
 )
-
 
 class APP:
     @classmethod
@@ -57,10 +54,10 @@ class APP:
                 if msg_type == "text":
                     content = xml_res.find('Content').text
                     return text(
-                        Reply_text(
+                        Reply_text.Reply_text(
                             from_user,
                             to_user,
-                            Reply(
+                            Reply.Reply(
                                 from_user,
                                 content)))
         return app

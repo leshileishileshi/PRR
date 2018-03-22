@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-   File Name：     main
+   File Name：     manage
    Description :
    Author :       linhanqiu
    date：          3/22/18
@@ -12,19 +12,7 @@
 """
 __author__ = 'linhanqiu'
 
-from PPR_WX.Base import App
-robot = App.Init()
+from PRR_WX.Base import APP
 
-
-# @robot.text 修饰的 Handler 只处理文本消息
-@robot.text
-def echo(message):
-    return message.content
-
-# @robot.image 修饰的 Handler 只处理图片消息
-@robot.image
-def img(message):
-    return message.img
-
-
-robot.run()
+app = APP.Init()
+app.run(host="0.0.0.0", port=80, debug=True)

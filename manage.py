@@ -13,6 +13,7 @@
 __author__ = 'linhanqiu'
 
 from PRR_WX.Base import APP
-
+from PRR_WX.Static import conf
+# 启动后台
 app = APP.Init()
-app.run(host="0.0.0.0", port=80, debug=True)
+app.run(host=conf.get("HOST"), port=conf.get("PORT"), debug=True)

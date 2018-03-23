@@ -19,14 +19,21 @@ import xml.etree.ElementTree as Element
 from PRR_WX.Utils.Validate import Validate
 from PRR_WX.Utils.CustomReply import (
     Reply_text,
-    Reply
+    TReply,
+    Reply_image,
+    IReply
 )
+# 蓝图管理
+from PRR_WX.Modules.Material.Views import mt
+
 
 class APP:
     @classmethod
     def Init(cls):
         app = Sanic(__name__)
-
+        # 注册蓝图
+        cls.Register_Bp(app)
+        # 基础方法
         @app.route("/", methods=["GET", "POST"])
         async def root_path(request):
             # 获取请求方式
@@ -53,11 +60,68 @@ class APP:
                 # 文字信息
                 if msg_type == "text":
                     content = xml_res.find('Content').text
+                    if content == '校招群':
+                        return text(
+                            Reply_image.Reply_image(
+                                from_user,
+                                to_user,
+                                IReply.Reply(
+                                    from_user,
+                                    content)),)
+                    elif content == '社招群':
+                        return text(
+                            Reply_image.Reply_image(
+                                from_user,
+                                to_user,
+                                IReply.Reply(
+                                    from_user,
+                                    content)))
+                    else:
+                        return text(
+                            Reply_text.Reply_text(
+                                from_user,
+                                to_user,
+                                TReply.Reply(
+                                    from_user,
+                                    content)))
+                # 处理图片信息
+                elif msg_type == "image":
+                    content = xml_res.find('MediaId').text
+                    a =  Reply_image.Reply_image(
+                            from_user,
+                            to_user,
+                            IReply.Reply(
+                                from_user,
+                                content))
+                    return text(a)
+                # 处理语言信息
+                elif msg_type == "voice":
                     return text(
                         Reply_text.Reply_text(
                             from_user,
                             to_user,
-                            Reply.Reply(
+                            "语音处理还未开发"))
+                # 处理事件信息
+                elif msg_type == "event":
+                    content = xml_res.find('Event').text
+                    # 处理订阅事件信息
+                    if content in ["subscribe","unsubscribe"]:
+                        # 回复文字信息
+                        return text(
+                            Reply_text.Reply_text(
                                 from_user,
-                                content)))
+                                to_user,
+                                TReply.Reply(
+                                    from_user,
+                                    content)))
+                    else:
+                        return text(
+                            Reply_text.Reply_text(
+                                from_user,
+                                to_user,
+                                "事件处理还未开发"))
         return app
+
+    @classmethod
+    def Register_Bp(cls,app):
+        app.blueprint(mt)

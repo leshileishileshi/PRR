@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 pyyaml = "*"
 sanic = "*"
+aiohttp = "*"
+ujson = "*"
 
 [dev-packages]
 

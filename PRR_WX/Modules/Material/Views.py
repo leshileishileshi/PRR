@@ -22,8 +22,13 @@ mt = Blueprint('Material',)
 @mt.route('/mt', methods=['GET', 'POST'])
 async def mt_detail(request):
     token = await get_token()
+    type = 'image'
+    data = {
+        "media":'/home/PRR/Sources/Images/校招群.jpg'
+    }
+    print(token)
     async with aiohttp.ClientSession() as sess:
-        async with sess.get(f'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={token}') as r:
-            print(r.url)
+        async with sess.post(f'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={token}&type={type}',
+                             data = data) as r:
             rr = await r.json()
     return json({'my': rr})

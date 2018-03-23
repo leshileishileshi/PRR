@@ -120,8 +120,10 @@ class APP:
                                 from_user,
                                 to_user,
                                 "事件处理还未开发"))
+        # 返回sanic实例
         return app
 
+    # 注册蓝图
     @classmethod
     def Register_Bp(cls,app):
         app.blueprint(mt)

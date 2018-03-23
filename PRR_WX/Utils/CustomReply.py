@@ -66,6 +66,7 @@ class Reply_image(metaclass=BaseReply):
         """.format(to_user, from_user,
                    int(time.time() * 1000), content)
 
+
 class Reply_event(metaclass=BaseReply):
     @classmethod
     def Reply_event(cls, to_user, from_user, content):
@@ -88,6 +89,8 @@ class Reply_event(metaclass=BaseReply):
 
         """.format(to_user, from_user,
                    int(time.time() * 1000), content)
+
+
 class TReply(metaclass=BaseReply):
     @classmethod
     def Reply(cls, openid, msg):
@@ -100,9 +103,9 @@ class TReply(metaclass=BaseReply):
         if "日期" == msg:
             return "今天是%s" % datetime.datetime.now().strftime('%Y年%m月%d日 %H时%M分%S秒')
         elif "subscribe" == msg:
-            return "欢迎又回来了"
+            return "等了你好久，终于你又回来了，赶快看看最新的消息吧!"
         elif "unsubscribe" == msg:
-            return "你忍心吗？"
+            return "朋友，你忍心吗？"
         else:
             return "原谅代码狗团队的唯一一只正在加班\n."
 
@@ -123,6 +126,7 @@ class IReply(metaclass=BaseReply):
         else:
             # 什么都不做，回复对方发送的图片
             return msg
+
 
 class EReply(metaclass=BaseReply):
     @classmethod
